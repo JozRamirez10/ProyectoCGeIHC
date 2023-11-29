@@ -1,7 +1,7 @@
 /* Semestre 2024-1
-Animación por keyframes
-La textura del skybox fue conseguida desde la página https://opengameart.org/content/elyvisions-skyboxes?page=1
-y edité en Gimp rotando 90 grados en sentido antihorario la imagen  sp2_up.png para poder ver continuidad.
+Animaciï¿½n por keyframes
+La textura del skybox fue conseguida desde la pï¿½gina https://opengameart.org/content/elyvisions-skyboxes?page=1
+y editï¿½ en Gimp rotando 90 grados en sentido antihorario la imagen  sp2_up.png para poder ver continuidad.
 Fuentes :
 	https ://www.khronos.org/opengl/wiki/Keyframe_Animation
 	http ://what-when-how.com/wp-content/uploads/2012/07/tmpcd0074_thumb.png
@@ -32,7 +32,7 @@ Fuentes :
 #include"Model.h"
 #include "Skybox.h"
 
-//para iluminación
+//para iluminaciï¿½n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
@@ -40,7 +40,7 @@ Fuentes :
 #include "Material.h"
 const float toRadians = 3.14159265f / 180.0f;
 
-//variables para animación
+//variables para animaciï¿½n
 float movCoche;
 float movOffset;
 float rotllanta;
@@ -57,7 +57,7 @@ float angulovaria = 0.0f;
 
 //-------------------PINBALL------------------------
 
-//variables para animación
+//variables para animaciï¿½n
 float movMoneda;
 float movBola;
 float rotBola;
@@ -108,6 +108,22 @@ Texture AguaTexture;
 Texture TableroTexture;
 Texture MonedaTexture;
 
+//Asteroid Arcade Textures-------------------
+Texture ArcadeCoinSlots;
+Texture ArcadeDoors;
+Texture AsterFire_Title_screen;
+Texture AsterFireCabinet;
+Texture AsterFireFrontArt;
+Texture AsterFireSideArt;
+Texture AsterMesh;
+
+//Arcade Textures----------------------------
+Texture arcadeEmissive;
+Texture arcadeEetall;
+Texture arcadeNormall;
+Texture arcadeRoughness;
+Texture arcadeOk;
+
 //-------------Timmy Turner------------------
 
 Model Torso_M;
@@ -141,6 +157,9 @@ Model Cuarto_M;
 Model Ventana_M;
 Model Cortina_M;
 
+Model Asteroid;
+Model Arcade;
+
 
 Skybox skybox;
 
@@ -148,7 +167,7 @@ Skybox skybox;
 Material Material_brillante;
 Material Material_opaco;
 
-bool esDeDia = true;  // Variable para indicar si es de día o de noche
+bool esDeDia = true;  // Variable para indicar si es de dï¿½a o de noche
 
 
 //Sphere cabeza = Sphere(0.5, 20, 20);
@@ -169,11 +188,11 @@ static const char* vShader = "shaders/shader_light.vert";
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
 
-//función para teclado de keyframes 
+//funciï¿½n para teclado de keyframes 
 void inputKeyframes(bool* keys);
 
 
-//cálculo del promedio de las normales para sombreado de Phong
+//cï¿½lculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
 	unsigned int vLength, unsigned int normalOffset)
 {
@@ -410,18 +429,18 @@ void animate(void)
 	//Movimiento del objeto con barra espaciadora
 	if (play)
 	{
-		if (i_curr_steps >= i_max_steps) //fin de animación entre frames?
+		if (i_curr_steps >= i_max_steps) //fin de animaciï¿½n entre frames?
 		{
 			playIndex++;
 			printf("playindex : %d\n", playIndex);
-			if (playIndex > FrameIndex - 2)	//Fin de toda la animación con último frame?
+			if (playIndex > FrameIndex - 2)	//Fin de toda la animaciï¿½n con ï¿½ltimo frame?
 			{
 				printf("Frame index= %d\n", FrameIndex);
 				printf("termino la animacion\n");
 				playIndex = 0;
 				play = false;
 			}
-			else //Interpolación del próximo cuadro
+			else //Interpolaciï¿½n del prï¿½ximo cuadro
 			{
 
 				i_curr_steps = 0; //Resetea contador
@@ -431,7 +450,7 @@ void animate(void)
 		}
 		else
 		{
-			//Dibujar Animación
+			//Dibujar Animaciï¿½n
 			movAvion_x += KeyFrame[playIndex].movAvion_xInc * deltaTime;
 			movAvion_y += KeyFrame[playIndex].movAvion_yInc * deltaTime;
 			movAvion_z += KeyFrame[playIndex].movAvion_zInc * deltaTime;
@@ -598,6 +617,48 @@ int main()
 	CortinaTexture.LoadTextureA();
 	//-------------------------------------------------------
 
+	Asteroid = Model();
+	Asteroid.LoadModel("Models/Asteroid/AsterFireArcade.obj");
+
+	Arcade = Model();
+	Arcade.LoadModel("Models/Arcade/arcade.obj");
+	//Textures------------------------------------------------
+	ArcadeCoinSlots = Texture("Texture/ArcadeCoinSlots.png");
+	ArcadeCoinSlots.LoadTexture();
+
+	ArcadeDoors = Texture("Texture/ArcadeDoors.png");
+	ArcadeDoors.LoadTexture();
+
+	AsterFire_Title_screen = Texture("Texture/AsterFire Title screen.png");
+	AsterFire_Title_screen.LoadTexture();
+
+	AsterFireCabinet = Texture("Texture/AsterFireCabinet.png");
+	AsterFireCabinet.LoadTexture();
+
+	AsterFireFrontArt = Texture("Texture/AsterFireFrontArt.png");
+	AsterFireFrontArt.LoadTexture();
+
+	AsterFireSideArt = Texture("Texture/AsterFireSideArt.png");
+	AsterFireSideArt.LoadTexture();
+
+	AsterMesh = Texture("Texture/Mesh.png");
+	AsterMesh.LoadTexture();
+
+	 arcadeEmissive = Texture("Texture/emissive.png");
+	 arcadeEmissive.LoadTexture();
+
+	 arcadeEetall = Texture("Texture/metall.png");
+	 arcadeEetall.LoadTexture();
+
+	 arcadeNormall = Texture("Texture/normall.png");
+	 arcadeNormall.LoadTexture();
+
+	 arcadeRoughness = Texture("Texture/roughness.png");
+	 arcadeRoughness.LoadTexture();
+
+	 arcadeOk = Texture("Texture/ok.png");
+	 arcadeOk.LoadTexture();
+
 	std::vector<std::string> skyboxFacesDia = {
 	"Textures/Skybox/rainbow_rt.png",
 	"Textures/Skybox/rainbow_lf.png",
@@ -616,7 +677,7 @@ int main()
 		"Textures/Skybox/rainbow_ft_noche.png"
 	};
 
-	Skybox skybox(skyboxFacesDia);  // Inicializar con las texturas del día
+	Skybox skybox(skyboxFacesDia);  // Inicializar con las texturas del dï¿½a
 
 
 	Material_brillante = Material(4.0f, 256);
@@ -625,7 +686,7 @@ int main()
 	unsigned int pointLightCount = 0;
 	unsigned int spotLightCount = 0;
 
-	//luz direccional, sólo 1 y siempre debe de existir
+	//luz direccional, sï¿½lo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
 		0.3f, 0.3f,
 		0.0f, 0.0f, -1.0f);
@@ -686,7 +747,7 @@ int main()
 	rotllantaOffset = 10.0f;
 	glm::vec3 posblackhawk = glm::vec3(2.0f, 0.0f, 0.0f);
 
-	//---------PARA TENER KEYFRAMES GUARDADOS NO VOLATILES QUE SIEMPRE SE UTILIZARAN SE DECLARAN AQUÍ
+	//---------PARA TENER KEYFRAMES GUARDADOS NO VOLATILES QUE SIEMPRE SE UTILIZARAN SE DECLARAN AQUï¿½
 
 	KeyFrame[0].movAvion_x = 0.0f;
 	KeyFrame[0].movAvion_y = 0.0f;
@@ -773,18 +834,18 @@ int main()
 	GLfloat posicionObjetivo = -125.0f;
 	GLfloat objetivoBola = 80.0f;
 	movBola = 0.0f;  // Inicializa el movimiento de la bola
-	rotBola = 0.0f;  // Inicializa la rotación de la bola
+	rotBola = 0.0f;  // Inicializa la rotaciï¿½n de la bola
 	movBolaZ = 0.0f;
 	// Variables globales
 	float tiempo = 0.0f; // Variable de tiempo
-	float escalaZ = 1.0f; // Escala inicial en la dirección z
+	float escalaZ = 1.0f; // Escala inicial en la direcciï¿½n z
 
 	//CAMBIAR TIEMPO
 
 	double tiempoPrevio = 0.0;
 	double tiempoDeCambio = 60.0; // 60 segundos = 1 minuto
 
-	// Variables para la animación de los peces
+	// Variables para la animaciï¿½n de los peces
 	float movPezX = 0.0f;
 	float movPezY = 0.0f; // Nueva componente para el movimiento vertical
 
@@ -804,14 +865,14 @@ int main()
 	float xTranslate = 0.0f;
 
 	const float maxZDistance = 198.0f;
-	const float maxXDistance = 57.0f; // Ajusta la distancia según tus necesidades
+	const float maxXDistance = 57.0f; // Ajusta la distancia segï¿½n tus necesidades
 	const float maxZDistance2 = -0.2f;
 	int estadoMovimiento = 0.0f;
 
 	//CAMINATA
 
-	// Variables para la animación
-	float velocidadAnimacion = 3.5f; // Puedes ajustar la velocidad según sea necesario
+	// Variables para la animaciï¿½n
+	float velocidadAnimacion = 3.5f; // Puedes ajustar la velocidad segï¿½n sea necesario
 
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -873,7 +934,7 @@ int main()
 
 		//-----------CAMBIAR ENTRE DIA Y NOCHE----------------------------------
 
-			// Obtén el tiempo actual
+			// Obtï¿½n el tiempo actual
 		double tiempoActual = glfwGetTime();
 
 		// Verifica si ha pasado el tiempo de cambio
@@ -881,7 +942,7 @@ int main()
 		{
 			tiempoPrevio = tiempoActual; // Reinicia el temporizador
 
-			// Cambiar entre día y noche
+			// Cambiar entre dï¿½a y noche
 			if (esDeDia)
 			{
 				// Cambiar a la noche
@@ -890,7 +951,7 @@ int main()
 			}
 			else
 			{
-				// Cambiar al día
+				// Cambiar al dï¿½a
 				esDeDia = true;
 				skybox.setSkyboxTextures(skyboxFacesDia);
 			}
@@ -921,7 +982,7 @@ int main()
 		uniformColor = shaderList[0].getColorLocation();
 		uniformTextureOffset = shaderList[0].getOffsetLocation();
 
-		//información en el shader de intensidad especular y brillo
+		//informaciï¿½n en el shader de intensidad especular y brillo
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
 
@@ -929,12 +990,12 @@ int main()
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
-		// luz ligada a la cámara de tipo flash
+		// luz ligada a la cï¿½mara de tipo flash
 		glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
-		//información al shader de fuentes de iluminación
+		//informaciï¿½n al shader de fuentes de iluminaciï¿½n
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
@@ -986,7 +1047,7 @@ int main()
 		case 0:
 			// Movimiento en el eje Z
 			if (zTranslate < maxZDistance) {
-				zTranslate += 0.5f; // Se ajusta la velocidad según tus necesidades
+				zTranslate += 0.5f; // Se ajusta la velocidad segï¿½n tus necesidades
 			}
 			else {
 				estadoMovimiento = 1;
@@ -996,8 +1057,8 @@ int main()
 		case 1:
 			// Movimiento en el eje X
 			if (xTranslate > -maxXDistance) {
-				xTranslate -= 0.5f; // Moverse en dirección negativa del eje X
-				zTranslate += 0.2f; // Se ajusta la cantidad de desplazamiento en Z para lograr la inclinación
+				xTranslate -= 0.5f; // Moverse en direcciï¿½n negativa del eje X
+				zTranslate += 0.2f; // Se ajusta la cantidad de desplazamiento en Z para lograr la inclinaciï¿½n
 			}
 			else {
 				estadoMovimiento = 2;
@@ -1005,9 +1066,9 @@ int main()
 			break;
 
 		case 2:
-			// Movimiento en el eje Z (en dirección negativa)
+			// Movimiento en el eje Z (en direcciï¿½n negativa)
 			if (zTranslate > -maxZDistance2) {
-				zTranslate -= 0.5f; // Se ajusta la velocidad según tus necesidades
+				zTranslate -= 0.5f; // Se ajusta la velocidad segï¿½n tus necesidades
 			}
 			else {
 				estadoMovimiento = 3;
@@ -1068,9 +1129,9 @@ int main()
 
 		//--------------------ANIMACION RESORTE-----------------------------------------
 		//RESORTE
-		tiempo += 0.025f; // Puedes ajustar la velocidad de la animación cambiando este valor
-		// Calcular la escala en la dirección z de acuerdo con el tiempo
-		escalaZ = 1.0f + 0.5f * sin(tiempo); // La función sinusoidal crea la compresión y expansión
+		tiempo += 0.025f; // Puedes ajustar la velocidad de la animaciï¿½n cambiando este valor
+		// Calcular la escala en la direcciï¿½n z de acuerdo con el tiempo
+		escalaZ = 1.0f + 0.5f * sin(tiempo); // La funciï¿½n sinusoidal crea la compresiï¿½n y expansiï¿½n
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(53.0f, 153.0f, 150.0f));
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, escalaZ * 5.0f));
@@ -1085,30 +1146,30 @@ int main()
 		glm::mat4 estrellaModel = glm::mat4(1.0);
 		glm::mat4 paloModel = glm::mat4(1.0);
 
-		float velocidadRotacion = 1.0f; // Ajusta la velocidad de rotación según tus necesidades
+		float velocidadRotacion = 1.0f; // Ajusta la velocidad de rotaciï¿½n segï¿½n tus necesidades
 
-		// Actualiza la rotación de la estrella para que haga medias vueltas
+		// Actualiza la rotaciï¿½n de la estrella para que haga medias vueltas
 		estrellaModel = glm::translate(glm::mat4(1.0), glm::vec3(15.0f, 153.0f, 10.0f));
 		estrellaModel = glm::rotate(estrellaModel, glm::radians(180.0f * sin(velocidadRotacion * tiempo)), glm::vec3(0.0f, 1.0f, 0.0f));
 		estrellaModel = glm::scale(estrellaModel, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(estrellaModel));
 		Estrella_M.RenderModel();
 
-		// Actualiza la rotación del palo
+		// Actualiza la rotaciï¿½n del palo
 		paloModel = glm::translate(estrellaModel, glm::vec3(0.0f, -0.5f, 0.0f));
 		paloModel = glm::scale(paloModel, glm::vec3(1.0f, 2.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(paloModel));
 		Palo_M.RenderModel();
 
 
-		// Actualiza la rotación de la estrella para que haga medias vueltas
+		// Actualiza la rotaciï¿½n de la estrella para que haga medias vueltas
 		estrellaModel = glm::translate(glm::mat4(1.0), glm::vec3(-45.0f, 153.0f, 65.0f));
 		estrellaModel = glm::rotate(estrellaModel, glm::radians(180.0f * sin(velocidadRotacion * tiempo)), glm::vec3(0.0f, 1.0f, 0.0f));
 		estrellaModel = glm::scale(estrellaModel, glm::vec3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(estrellaModel));
 		Estrella_M.RenderModel();
 
-		// Actualiza la rotación del palo
+		// Actualiza la rotaciï¿½n del palo
 		paloModel = glm::translate(estrellaModel, glm::vec3(0.0f, -0.5f, 0.0f));
 		paloModel = glm::scale(paloModel, glm::vec3(1.0f, 2.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(paloModel));
@@ -1294,7 +1355,7 @@ int main()
 		// Torso
 		modelTorso = glm::mat4(1.0);
 		modelTorso = glm::translate(modelTorso, glm::vec3(-20.0f + mainWindow.getmuevex(), 153.0f, 140.0f + mainWindow.getmuevez()));
-		modelTorso = glm::rotate(modelTorso, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotación de 180 grados en el eje Z
+		modelTorso = glm::rotate(modelTorso, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotaciï¿½n de 180 grados en el eje Z
 		spotLights[2].SetPos(glm::vec3(-20.0f + mainWindow.getmuevex(), 153.0f, 140.0f + mainWindow.getmuevez()));
 		modelTorso = glm::scale(modelTorso, glm::vec3(0.4f, 0.4f, 0.4f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelTorso));
@@ -1303,7 +1364,7 @@ int main()
 
 		// Cabeza
 		modelCabeza = modelTorso;  // La cabeza sigue al torso
-		// Se modifica la posición vertical de la cabeza usando el seno del tiempo para crear una animación oscilante
+		// Se modifica la posiciï¿½n vertical de la cabeza usando el seno del tiempo para crear una animaciï¿½n oscilante
 		float offsetVertical = sin(tiempo) * 0.5f;
 		modelCabeza = glm::translate(modelCabeza, glm::vec3(0.0f, 6.0f + offsetVertical, 1.5f));
 		modelCabeza = glm::scale(modelCabeza, glm::vec3(2.0f, 2.0f, 2.0f));
@@ -1312,7 +1373,7 @@ int main()
 
 		// BrazoIzq
 		modelBrazoIzq = modelTorso;  // El brazo izquierdo sigue al torso
-		float offsetYBrazoIzq = sin(tiempo) * 0.2f; // Ajusta la amplitud según tus necesidades
+		float offsetYBrazoIzq = sin(tiempo) * 0.2f; // Ajusta la amplitud segï¿½n tus necesidades
 		modelBrazoIzq = glm::translate(modelBrazoIzq, glm::vec3(1.5f, 2.8f + offsetYBrazoIzq, -1.0f));
 		modelBrazoIzq = glm::scale(modelBrazoIzq, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelBrazoIzq));
@@ -1320,20 +1381,20 @@ int main()
 
 		// BrazoDer
 		modelBrazoDer = modelTorso;  // El brazo derecho sigue al torso
-		float offsetYBrazoDer = sin(tiempo) * 0.2f; // Ajusta la amplitud según tus necesidades
+		float offsetYBrazoDer = sin(tiempo) * 0.2f; // Ajusta la amplitud segï¿½n tus necesidades
 		modelBrazoDer = glm::translate(modelBrazoDer, glm::vec3(-0.5f, 2.8f + offsetYBrazoDer, -1.0f));
 		modelBrazoDer = glm::scale(modelBrazoDer, glm::vec3(1.0f, 1.0f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelBrazoDer));
 		BrazoDer_M.RenderModel();
 
-		// Lógica de tiempo
+		// Lï¿½gica de tiempo
 		tiempo = tiempoActual;
 
-		// Ajusta el factor de multiplicación para reducir el rango de movimiento
-		float factorAjuste = 0.8f; // Ajusta según sea necesario
+		// Ajusta el factor de multiplicaciï¿½n para reducir el rango de movimiento
+		float factorAjuste = 0.8f; // Ajusta segï¿½n sea necesario
 
 		// Calcula el desplazamiento horizontal (en el eje z) basado en el tiempo
-		float offsetZ = sin(tiempo * velocidadAnimacion) * factorAjuste; // Ajusta según sea necesario
+		float offsetZ = sin(tiempo * velocidadAnimacion) * factorAjuste; // Ajusta segï¿½n sea necesario
 
 		// PiernaIzq
 		modelPiernaIzq = modelTorso;
@@ -1367,6 +1428,22 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Ventana_M.RenderModel();
 
+		//Asteroid Arcade
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, 230.0f, -10.0f));
+		model = glm::rotate(model, glm::radians(-75.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(20.0f, 18.0f, 20.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Asteroid.RenderModel();
+
+		//Arcade 
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(220.0f, 0.0f, -30.0f));
+		model = glm::rotate(model, glm::radians(-105.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(120.0f, 170.0f, 120.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Arcade.RenderModel();
+
 
 		glUseProgram(0);
 
@@ -1396,7 +1473,7 @@ void inputKeyframes(bool* keys)
 				playIndex = 0;
 				i_curr_steps = 0;
 				reproduciranimacion++;
-				printf("\n presiona 0 para habilitar reproducir de nuevo la animación'\n");
+				printf("\n presiona 0 para habilitar reproducir de nuevo la animaciï¿½n'\n");
 				habilitaranimacion = 0;
 
 			}
@@ -1411,7 +1488,7 @@ void inputKeyframes(bool* keys)
 	{
 		if (habilitaranimacion < 1 && reproduciranimacion>0)
 		{
-			printf("Ya puedes reproducir de nuevo la animación con la tecla de barra espaciadora'\n");
+			printf("Ya puedes reproducir de nuevo la animaciï¿½n con la tecla de barra espaciadora'\n");
 			reproduciranimacion = 0;
 
 		}
