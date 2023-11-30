@@ -1389,6 +1389,18 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(estrellaModel));
 		Estrella_M.RenderModel();
 
+		estrellaModel = glm::translate(glm::mat4(1.0), glm::vec3(-5.0f, 153.0f, -80.0f));
+		estrellaModel = glm::rotate(estrellaModel, glm::radians(180.0f * sin(velocidadRotacion * tiempo)), glm::vec3(0.0f, 1.0f, 0.0f));
+		estrellaModel = glm::scale(estrellaModel, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(estrellaModel));
+		Estrella_M.RenderModel();
+
+		// Actualiza la rotaci�n del palo
+		paloModel = glm::translate(estrellaModel, glm::vec3(0.0f, -0.5f, 0.0f));
+		paloModel = glm::scale(paloModel, glm::vec3(1.0f, 2.0f, 1.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(paloModel));
+		Palo_M.RenderModel();
+
 		// Actualiza la rotaci�n del palo
 		paloModel = glm::translate(estrellaModel, glm::vec3(0.0f, -0.5f, 0.0f));
 		paloModel = glm::scale(paloModel, glm::vec3(1.0f, 2.0f, 1.0f));
@@ -1681,7 +1693,24 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Arcade.RenderModel();
 
+		// Flecha
+		toffsetflechau += 0.01;
+		toffsetflechav += 0.0;
 
+		// Asegurarse de que la variable no se desborde
+		if (toffsetflechau > 1.0)
+			toffsetflechau = 0.0;
+
+		toffset = glm::vec2(toffsetflechau, toffsetflechav);
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-35.0f, 151.0f, 45.0f));
+		model = glm::rotate(model, -55.0f * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(15.0f, 15.0f, 15.0f));
+
+		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		FlechaTexture.UseTexture();
 		
 
 		glUseProgram(0);
