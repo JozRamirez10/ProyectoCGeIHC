@@ -32,10 +32,10 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 }
 int Window::Initialise()
 {
-	//Inicialización de GLFW
+	//InicializaciÃ³n de GLFW
 	if (!glfwInit())
 	{
-		printf("Falló inicializar GLFW");
+		printf("FallÃ³ inicializar GLFW");
 		glfwTerminate();
 		return 1;
 	}
@@ -55,7 +55,7 @@ int Window::Initialise()
 		glfwTerminate();
 		return 1;
 	}
-	//Obtener tamaño de Buffer
+	//Obtener tamaÃ±o de Buffer
 	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
 
 	//asignar el contexto
@@ -70,7 +70,7 @@ int Window::Initialise()
 
 	if (glewInit() != GLEW_OK)
 	{
-		printf("Falló inicialización de GLEW");
+		printf("FallÃ³ inicializaciÃ³n de GLEW");
 		glfwDestroyWindow(mainWindow);
 		glfwTerminate();
 		return 1;
@@ -81,7 +81,7 @@ int Window::Initialise()
 
 	//Asignar Viewport
 	glViewport(0, 0, bufferWidth, bufferHeight);
-	//Callback para detectar que se está usando la ventana
+	//Callback para detectar que se estÃ¡ usando la ventana
 	glfwSetWindowUserPointer(mainWindow, this);
 }
 
@@ -115,22 +115,22 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
-	if (key == GLFW_KEY_F)
+	if (key == GLFW_KEY_D)
 	{
 		theWindow->muevex += 1.0;
 		theWindow->carroX = false;
 	}
-	if (key == GLFW_KEY_G)
+	if (key == GLFW_KEY_A)
 	{
 		theWindow->muevex -= 1.0;
 		theWindow->carroX = true;
 	}
-	if (key == GLFW_KEY_H)
+	if (key == GLFW_KEY_S)
 	{
 		theWindow->muevez += 1.0;
 		theWindow->carroZ = false;
 	}
-	if (key == GLFW_KEY_J)
+	if (key == GLFW_KEY_W)
 	{
 		theWindow->muevez -= 1.0;
 		theWindow->carroZ = true;
@@ -172,7 +172,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 			theWindow->paletader -= 35.0;
 			if (theWindow->paletader < -90.0)
 			{
-				theWindow->paletader = -100.0; // Limitar la apertura al mínimo
+				theWindow->paletader = -100.0; // Limitar la apertura al mÃ­nimo
 			}
 		}
 	}
@@ -193,7 +193,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 				theWindow->paletader -= 35.0;
 				if (theWindow->paletader < -90.0)
 				{
-					theWindow->paletader = -100.0; // Limitar la apertura al mínimo
+					theWindow->paletader = -100.0; // Limitar la apertura al mÃ­nimo
 				}
 			}
 		}
@@ -215,7 +215,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 			theWindow->paletaizq -= 35.0;
 			if (theWindow->paletaizq < -90.0)
 			{
-				theWindow->paletaizq = -100.0; // Limitar la apertura al mínimo
+				theWindow->paletaizq = -100.0; // Limitar la apertura al mÃ­nimo
 			}
 		}
 	}
@@ -236,7 +236,7 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 			theWindow->paletacentral -= 35.0;
 			if (theWindow->paletacentral < -90.0)
 			{
-				theWindow->paletacentral = -100.0; // Limitar la apertura al mínimo
+				theWindow->paletacentral = -100.0; // Limitar la apertura al mÃ­nimo
 			}
 		}
 	}
@@ -328,10 +328,10 @@ void Window::ManejaMouse(GLFWwindow* window, double xPos, double yPos)
 	theWindow->lastX = xPos;
 	theWindow->lastY = yPos;
 
-	// Verifica si el botón derecho del mouse está presionado
+	// Verifica si el botÃ³n derecho del mouse estÃ¡ presionado
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 	{
-		// Activa la animación
+		// Activa la animaciÃ³n
 		theWindow->animacionActiva = true;
 	}
 }
