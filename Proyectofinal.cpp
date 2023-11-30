@@ -187,6 +187,21 @@ Texture pizarronBorde;
 Texture pizarronFondo;
 Texture pizarronPatas;
 
+Model avatarDanny;
+Texture a1;
+Texture a2;
+Texture a3;
+Texture a4;
+Texture a5;
+Texture a6;
+Texture a7;
+Texture a8;
+Texture a9;
+Texture a10;
+Texture a11;
+Texture a12;
+Texture a13;
+
 
 Skybox skybox;
 
@@ -769,6 +784,50 @@ int main()
 	 pizarronPatas = Texture("Textures/PatasPizarron.png");
 	 pizarronPatas.LoadTextureA();
 
+	 avatarDanny = Model();
+	 avatarDanny.LoadModel("Models/DannyPhantom/Avatar/avatar.obj");
+
+	 a1 = Texture("Textures/Mascot_Occlusion.png");
+	 a1.LoadTextureA();
+
+	 a2 = Texture("Textures/Plasma_Albedo.png");
+	 a2.LoadTextureA();
+
+	 a3 = Texture("Textures/Plasma_Ao.png");
+	 a3.LoadTextureA();
+
+	 a4 = Texture("Textures/Plasma_Emissive.png");
+	 a4.LoadTextureA();
+
+	 a5 = Texture("Textures/Plasma_Normal.png");
+	 a5.LoadTextureA();
+
+	 a6 = Texture("Textures/Plasma_Props_Albedo.png");
+	 a6.LoadTextureA();
+
+	 a7 = Texture("Textures/Plasma_Props_Emissive.png");
+	 a7.LoadTextureA();
+
+	 a8 = Texture("Textures/Plasma_Props_Metallic.png");
+	 a8.LoadTextureA();
+
+	 a9 = Texture("Textures/Plasma_Props_Normal.png");
+	 a9.LoadTextureA();
+
+	 a10 = Texture("Textures/Plasma_Specular_Albedo.png");
+	 a10.LoadTextureA();
+
+	 a11 = Texture("Textures/PlasmaCostume_Albedo.png");
+	 a11.LoadTextureA();
+
+	 a12 = Texture("Textures/PlasmaCostume_Mirror_Albedo.png");
+	 a12.LoadTextureA();
+
+	 a13 = Texture("Textures/white.png");
+	 a13.LoadTextureA();
+
+	 // ---------------------------------------------------
+
 	std::vector<std::string> skyboxFacesDia = {
 	"Textures/Skybox/rainbow_rt.png",
 	"Textures/Skybox/rainbow_lf.png",
@@ -1151,6 +1210,11 @@ int main()
 		model = glm::translate(model, glm::vec3(-35.0f, 160.5f, -60.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Pizarron.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-30.0f, 150.0f, 142.5f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		avatarDanny.RenderModel();
 
 		//Pinball
 		model = glm::mat4(1.0);

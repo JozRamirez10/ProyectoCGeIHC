@@ -1,0 +1,42 @@
+# Blender MTL File: 'None'
+# Material Count: 3
+
+newmtl Plasma
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.594340 0.580322 0.580322
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump -bm 5.000000 Plasma_Normal.png
+map_Kd Plasma_Albedo.png
+map_Ke Plasma_Emissive.png
+map_Ks Plasma_Specular_Albedo.png
+map_d Plasma_Albedo.png
+
+newmtl PlasmaProps
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Bump Plasma_Props_Normal.png
+map_Kd Plasma_Props_Albedo.png
+map_d Plasma_Props_Albedo.png
+
+newmtl plasma_ghost_proj
+Ns 199.999995
+Ka 1.000000 1.000000 1.000000
+Kd 0.254902 0.690196 0.607843
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd white.png
+map_d white.png
