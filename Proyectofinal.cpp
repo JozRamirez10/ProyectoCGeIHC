@@ -159,6 +159,7 @@ Model Cortina_M;
 
 Model Asteroid;
 Model Arcade;
+Texture ArrowTexture;
 
 // ----------------------------------------------------
 Model Termo;
@@ -559,7 +560,7 @@ int main()
 	Resorte_M.LoadModel("Models/Resorte.obj");
 
 	PaletaDere_M = Model();
-	PaletaDere_M.LoadModel("Models/PaletaDere.obj");
+	PaletaDere_M.LoadModel("Models/PaletaIzq.obj");
 
 	PaletaIzq_M = Model();
 	PaletaIzq_M.LoadModel("Models/PaletaIzq.obj");
@@ -681,6 +682,9 @@ int main()
 
 	 arcadeOk = Texture("Textures/ok.png");
 	 arcadeOk.LoadTexture();
+
+	 ArrowTexture = Texture("Textures/arrowTexture.png");
+	 ArrowTexture.LoadTexture();
 
 	 // -------------------------------------------------------
 
@@ -1205,7 +1209,8 @@ int main()
 		//Palate Derecha
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-30.0f, 150.5f, 110.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		model = glm::scale(model, glm::vec3(0.25f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(mainWindow.getpaletaizq()), glm::vec3(0.0f, -1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PaletaDere_M.RenderModel();
@@ -1213,7 +1218,7 @@ int main()
 		//Palate izquierda
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(10.0f, 150.5f, 110.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		model = glm::scale(model, glm::vec3(0.25f));
 		model = glm::rotate(model, glm::radians(mainWindow.getpaletader()), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PaletaIzq_M.RenderModel();
