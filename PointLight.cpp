@@ -21,6 +21,7 @@ PointLight::PointLight(GLfloat red, GLfloat green, GLfloat blue,
 	exponent = exp;
 }
 
+
 void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientcolorLocation, 
 							GLfloat diffuseIntensityLocation, GLfloat positionLocation, 
 							GLfloat constantLocation, GLfloat linearLocation, GLfloat exponentLocation)

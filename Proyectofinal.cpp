@@ -32,6 +32,20 @@ Fuentes :
 #include"Model.h"
 #include "Skybox.h"
 
+//Audio
+#ifdef WIN32
+#include <windows.h>
+#include <conio.h>
+inline void sleepSomeTime() { Sleep(100); }
+#endif
+
+#include <iostream>
+#include <irrKlang.h>
+
+using namespace irrklang;
+#pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
+
+
 //para iluminaci�n
 #include "CommonValues.h"
 #include "DirectionalLight.h"
@@ -211,6 +225,9 @@ Material Material_opaco;
 
 bool esDeDia = true;  // Variable para indicar si es de d�a o de noche
 
+//audio
+float posOnCircle = 0;
+const float radius = 5;
 
 //Sphere cabeza = Sphere(0.5, 20, 20);
 GLfloat deltaTime = 0.0f;
@@ -523,6 +540,7 @@ void animate(void)
 		}
 
 	}
+
 }
 
 ///////////////* FIN KEYFRAMES*////////////////////////////
@@ -538,6 +556,30 @@ int main()
 	CreateShaders();
 
 	camera = Camera(glm::vec3(0.0f, 300.0f, 300.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f, 0.5f, 0.5f);
+
+	ISoundEngine* engine = createIrrKlangDevice();
+	if (!engine)
+		return 0;
+
+	ISound* ambientSound = engine->play2D("media/avatar.mp3", true, false, true);
+	if(ambientSound)
+		ambientSound->setVolume(0.2f);
+
+	ISound* music = engine->play3D("media/oddparents.mp3",
+		vec3df(-10.0f, 153.0f, 29.0f), true, false, true);
+
+	if (music)
+		music->setMinDistance(15.0f);
+
+	ISound* musicPhantom = engine->play3D("media/effects.mp3",
+		vec3df(-35.0f, 160.5f, -60.0f), true, false, true);
+
+	if (musicPhantom)
+		musicPhantom->setMinDistance(15.0f);
+	
+	engine->setListenerPosition(vec3df(modelTorsoPosition[3].x, modelTorsoPosition[3].y, modelTorsoPosition[3].z + 12),
+		vec3df(modelTorsoPosition[3].x, modelTorsoPosition[3].y, modelTorsoPosition[3].z + 12));
+
 
 	brickTexture = Texture("Textures/brick.png");
 	brickTexture.LoadTextureA();
@@ -1548,6 +1590,8 @@ int main()
 		modelTorso = glm::mat4(1.0);
 		modelTorsoPosition = modelTorso = glm::translate(modelTorso, glm::vec3(-20.0f + mainWindow.getmuevex(), 153.0f, 140.0f + mainWindow.getmuevez()));
 		changeCamera(cameraActive);
+		engine->setListenerPosition(vec3df(modelTorsoPosition[3].x, modelTorsoPosition[3].y, modelTorsoPosition[3].z),
+			vec3df(modelTorsoPosition[3].x, modelTorsoPosition[3].y, modelTorsoPosition[3].z));
 		modelTorso = glm::rotate(modelTorso, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotaci�n de 180 grados en el eje Z
 		spotLights[2].SetPos(glm::vec3(-20.0f + mainWindow.getmuevex(), 153.0f, 140.0f + mainWindow.getmuevez()));
 		modelTorso = glm::scale(modelTorso, glm::vec3(0.4f, 0.4f, 0.4f));
