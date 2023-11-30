@@ -40,6 +40,8 @@ Fuentes :
 #include "Material.h"
 const float toRadians = 3.14159265f / 180.0f;
 
+int cameraActive = 1;
+
 //variables para animaci�n
 float movCoche;
 float movOffset;
@@ -70,6 +72,7 @@ float movBolaZ;
 //variables para keyframes
 float reproduciranimacion, habilitaranimacion, guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
 
+glm::mat4 modelTorsoPosition = glm::mat4(1.0);
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
@@ -215,6 +218,27 @@ static const char* fShader = "shaders/shader_light.frag";
 //funci�n para teclado de keyframes 
 void inputKeyframes(bool* keys);
 
+void changeCamera(int cameraActive) {
+	if (cameraActive == 1) {
+		camera.setYaw(60.0f);
+		camera.setPitch(0.0f);
+		camera.mouseControl(0.0f, 0.0f);
+		camera.setCameraPosition(glm::vec3(0.0f, 300.0f, 260.0f));
+		camera.setCameraDirection(glm::vec3(0.0f, -0.4f, -1.0f));
+	}
+	else if (cameraActive == 2) {		
+		camera.setCameraPosition(glm::vec3(modelTorsoPosition[3].x, modelTorsoPosition[3].y, modelTorsoPosition[3].z+12));	
+		camera.setCameraDirection(glm::vec3(0.0f, 0.0f, 1.0f));
+		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+	}
+	else if (cameraActive == 3) {
+		camera.setYaw(1.0f);
+		camera.setPitch(10.0f);
+		camera.mouseControl(0.0f, 0.0f);
+		camera.setCameraPosition(glm::vec3(-5.0f, 300.0f, 65.0f));
+		camera.setCameraDirection(glm::vec3(0.0f, -1.0f, 0.0f));
+	}
+}
 
 //c�lculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
@@ -498,7 +522,7 @@ int main()
 	CreateObjects();
 	CreateShaders();
 
-	camera = Camera(glm::vec3(0.0f, 300.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 0.5f, 0.5f);
+	camera = Camera(glm::vec3(0.0f, 300.0f, 300.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f, 0.5f, 0.5f);
 
 	brickTexture = Texture("Textures/brick.png");
 	brickTexture.LoadTextureA();
@@ -1049,8 +1073,7 @@ int main()
 
 			//Recibir eventos del usuario
 		glfwPollEvents();
-		camera.keyControl(mainWindow.getsKeys(), deltaTime);
-		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+		
 
 		//-------Para Keyframes
 		inputKeyframes(mainWindow.getsKeys());
@@ -1459,7 +1482,8 @@ int main()
 
 		// Torso
 		modelTorso = glm::mat4(1.0);
-		modelTorso = glm::translate(modelTorso, glm::vec3(-20.0f + mainWindow.getmuevex(), 153.0f, 140.0f + mainWindow.getmuevez()));
+		modelTorsoPosition = modelTorso = glm::translate(modelTorso, glm::vec3(-20.0f + mainWindow.getmuevex(), 153.0f, 140.0f + mainWindow.getmuevez()));
+		changeCamera(cameraActive);
 		modelTorso = glm::rotate(modelTorso, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotaci�n de 180 grados en el eje Z
 		spotLights[2].SetPos(glm::vec3(-20.0f + mainWindow.getmuevex(), 153.0f, 140.0f + mainWindow.getmuevez()));
 		modelTorso = glm::scale(modelTorso, glm::vec3(0.4f, 0.4f, 0.4f));
@@ -1560,9 +1584,6 @@ int main()
 	return 0;
 }
 
-
-
-
 void inputKeyframes(bool* keys)
 {
 
@@ -1643,6 +1664,27 @@ void inputKeyframes(bool* keys)
 			ciclo = 0;
 			printf("\n Ya puedes modificar tu variable presionando la tecla 1\n");
 		}
+	}
+
+	if (keys[GLFW_KEY_5] && GLFW_PRESS)
+	{
+		cameraActive = 1;
+		changeCamera(cameraActive);
+
+	}
+
+	if (keys[GLFW_KEY_6] && GLFW_PRESS)
+	{
+		camera.setYaw(-90.0f);
+		camera.setPitch(0.0f);
+		cameraActive = 2;
+		changeCamera(cameraActive);
+	}
+
+	if (keys[GLFW_KEY_7] && GLFW_PRESS)
+	{
+		cameraActive = 3;
+		changeCamera(cameraActive);
 	}
 
 }

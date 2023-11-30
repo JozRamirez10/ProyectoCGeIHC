@@ -62,6 +62,14 @@ void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
 	update();
 }
 
+void Camera::setYaw(float value) {
+	yaw = value;
+}
+
+void Camera::setPitch(float value) {
+	pitch = value;
+}
+
 glm::mat4 Camera::calculateViewMatrix()
 {
 	return glm::lookAt(position, position + front, up);
@@ -72,10 +80,20 @@ glm::vec3 Camera::getCameraPosition()
 	return position;
 }
 
+void Camera::setCameraPosition(glm::vec3 positionUpdated)
+{
+	position = positionUpdated;	
+}
+
 
 glm::vec3 Camera::getCameraDirection()
 {
 	return glm::normalize(front);
+}
+
+void Camera::setCameraDirection(glm::vec3 directionUpdated)
+{
+	front = directionUpdated;
 }
 
 void Camera::update()
