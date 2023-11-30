@@ -252,11 +252,9 @@ void inputKeyframes(bool* keys);
 
 void changeCamera(int cameraActive) {
 	if (cameraActive == 1) {
-		camera.setYaw(60.0f);
-		camera.setPitch(0.0f);
-		camera.mouseControl(0.0f, 0.0f);
 		camera.setCameraPosition(glm::vec3(0.0f, 300.0f, 260.0f));
 		camera.setCameraDirection(glm::vec3(0.0f, -0.4f, -1.0f));
+		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 	}
 	else if (cameraActive == 2) {		
 		camera.setCameraPosition(glm::vec3(modelTorsoPosition[3].x, modelTorsoPosition[3].y, modelTorsoPosition[3].z+12));	
@@ -1805,6 +1803,9 @@ void inputKeyframes(bool* keys)
 
 	if (keys[GLFW_KEY_5] && GLFW_PRESS)
 	{
+		camera.setYaw(60.0f);
+		camera.setPitch(0.0f);
+		camera.mouseControl(0.0f, 0.0f);
 		cameraActive = 1;
 		changeCamera(cameraActive);
 
