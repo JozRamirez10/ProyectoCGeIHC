@@ -160,6 +160,29 @@ Model Cortina_M;
 Model Asteroid;
 Model Arcade;
 
+// ----------------------------------------------------
+Model Termo;
+Texture TermoGris;
+Texture TermoGrisOscuro;
+Texture TermoVerde;
+Texture TermoBlanco;
+
+Model Plataforma;
+Texture plataformaBI;
+Texture plataformaBN;
+Texture plataformaBS;
+Texture plataformaCaja;
+Texture plataformaCentro;
+Texture plataformaCE;
+Texture plataformaCI;
+Texture plataformaSuperior;
+Texture plataformaZB;
+
+Model Pizarron;
+Texture pizarronBorde;
+Texture pizarronFondo;
+Texture pizarronPatas;
+
 
 Skybox skybox;
 
@@ -623,41 +646,100 @@ int main()
 	Arcade = Model();
 	Arcade.LoadModel("Models/Arcade/arcade.obj");
 	//Textures------------------------------------------------
-	ArcadeCoinSlots = Texture("Texture/ArcadeCoinSlots.png");
+	ArcadeCoinSlots = Texture("Textures/ArcadeCoinSlots.png");
 	ArcadeCoinSlots.LoadTexture();
 
-	ArcadeDoors = Texture("Texture/ArcadeDoors.png");
+	ArcadeDoors = Texture("Textures/ArcadeDoors.png");
 	ArcadeDoors.LoadTexture();
 
-	AsterFire_Title_screen = Texture("Texture/AsterFire Title screen.png");
+	AsterFire_Title_screen = Texture("Textures/AsterFire Title screen.png");
 	AsterFire_Title_screen.LoadTexture();
 
-	AsterFireCabinet = Texture("Texture/AsterFireCabinet.png");
+	AsterFireCabinet = Texture("Textures/AsterFireCabinet.png");
 	AsterFireCabinet.LoadTexture();
 
-	AsterFireFrontArt = Texture("Texture/AsterFireFrontArt.png");
+	AsterFireFrontArt = Texture("Textures/AsterFireFrontArt.png");
 	AsterFireFrontArt.LoadTexture();
 
-	AsterFireSideArt = Texture("Texture/AsterFireSideArt.png");
+	AsterFireSideArt = Texture("Textures/AsterFireSideArt.png");
 	AsterFireSideArt.LoadTexture();
 
-	AsterMesh = Texture("Texture/Mesh.png");
+	AsterMesh = Texture("Textures/Mesh.png");
 	AsterMesh.LoadTexture();
 
-	 arcadeEmissive = Texture("Texture/emissive.png");
+	 arcadeEmissive = Texture("Textures/emissive.png");
 	 arcadeEmissive.LoadTexture();
 
-	 arcadeEetall = Texture("Texture/metall.png");
+	 arcadeEetall = Texture("Textures/metall.png");
 	 arcadeEetall.LoadTexture();
 
-	 arcadeNormall = Texture("Texture/normall.png");
+	 arcadeNormall = Texture("Textures/normall.png");
 	 arcadeNormall.LoadTexture();
 
-	 arcadeRoughness = Texture("Texture/roughness.png");
+	 arcadeRoughness = Texture("Textures/roughness.png");
 	 arcadeRoughness.LoadTexture();
 
-	 arcadeOk = Texture("Texture/ok.png");
+	 arcadeOk = Texture("Textures/ok.png");
 	 arcadeOk.LoadTexture();
+
+	 // -------------------------------------------------------
+
+	 Termo = Model();
+	 Termo.LoadModel("Models/DannyPhantom/Thermos/Thermos.obj");
+
+	 TermoGris = Texture("Textures/GrisOscuro.jpg");
+	 TermoGris.LoadTextureA();
+
+	 TermoGrisOscuro = Texture("Textures/Gris.jpg");
+	 TermoGrisOscuro.LoadTextureA();
+
+	 TermoVerde = Texture("Textures/Verde.jpg");
+	 TermoVerde.LoadTextureA();
+
+	 TermoBlanco = Texture("Textures/Tapa_Blanca.jpg");
+	 TermoBlanco.LoadTextureA();
+
+	 Plataforma = Model();
+	 Plataforma.LoadModel("Models/DannyPhantom/Plataforma/Plataforma.obj");
+
+	 plataformaBI = Texture("Textures/bordeInterior.jpg");
+	 plataformaBI.LoadTexture();
+
+	 plataformaBN = Texture("Textures/bordesNegros.jpg");
+	 plataformaBN.LoadTexture();
+
+	 plataformaBS = Texture("Textures/bordeSuperior.jpg");
+	 plataformaBS.LoadTexture();
+
+	 plataformaCaja = Texture("Textures/caja.jpg");
+	 plataformaCaja.LoadTexture();
+
+	 plataformaCentro = Texture("Textures/centroPlataforma.jpg");
+	 plataformaCentro.LoadTexture();
+
+	 plataformaCE = Texture("Textures/colorExterior.jpg");
+	 plataformaCE.LoadTexture();
+
+	 plataformaCI = Texture("Textures/colorInterior.jpg");
+	 plataformaCI.LoadTexture();
+
+	 plataformaSuperior = Texture("Textures/superior.jpg");
+	 plataformaSuperior.LoadTexture();
+
+	 plataformaZB = Texture("Textures/zonaBaja.jpg");
+	 plataformaZB.LoadTexture();
+
+	 Pizarron = Model();
+	 Pizarron.LoadModel("Models/DannyPhantom/Pizarron/Pizarron.obj");
+
+	 pizarronBorde = Texture("Textures/BordePizarron.png");
+	 pizarronBorde.LoadTextureA();
+
+	 pizarronFondo = Texture("Textures/FondoPizarron.png");
+	 pizarronFondo.LoadTextureA();
+
+	 pizarronPatas = Texture("Textures/PatasPizarron.png");
+	 pizarronPatas.LoadTextureA();
 
 	std::vector<std::string> skyboxFacesDia = {
 	"Textures/Skybox/rainbow_rt.png",
@@ -1024,6 +1106,24 @@ int main()
 
 		//-----------------MESA DE PINBALL--------------------
 
+
+		// Objetos de Danny Phantom
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(52.5f, 155.0f, 120.0f));
+		model = glm::scale(model, glm::vec3(1.3f, 1.0f, 2.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Termo.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(15.0f, 152.5f, 69.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Plataforma.RenderModel();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-35.0f, 160.5f, -60.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pizarron.RenderModel();
 
 		//Pinball
 		model = glm::mat4(1.0);
@@ -1444,6 +1544,8 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Arcade.RenderModel();
 
+
+		
 
 		glUseProgram(0);
 
